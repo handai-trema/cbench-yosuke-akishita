@@ -12,8 +12,7 @@ class FastCbench < Trema::Controller
   private
 
   # rubocop:disable MethodLength
-  def create_flow_mod_binary(packet_in)
-    options = {
+ options = {
       command: :add,
       priority: 0,
       transaction_id: 0,
@@ -23,6 +22,8 @@ class FastCbench < Trema::Controller
       match: ExactMatch.new(packet_in),
       actions: SendOutPort.new(packet_in.in_port + 1)
     }
+  def create_flow_mod_binary(packet_in)
+   
     FlowMod.new(options).to_binary.tap do |flow_mod|
       def flow_mod.to_binary
         self
